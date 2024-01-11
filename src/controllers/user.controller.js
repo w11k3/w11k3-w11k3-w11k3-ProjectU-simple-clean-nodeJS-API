@@ -43,7 +43,8 @@ const getUser = (req, res) => {
     const user = userService.getUser(id);
 
     if (user) {
-        logger.info(`Retrieving ${id} user.`);
+        logger.info(`Retrieving user ID ${id}.`);
+         
         return res.status(StatusCodes.OK).send(
             {
                 status: STATUS.success,
@@ -95,13 +96,12 @@ const updateUser = (req, res) => {
     const updatedUser = userService.updateUser(id, user);
 
     if (updatedUser) {
+        logger.info(`Updating user ID ${id}.`);
 
         return res.status(StatusCodes.OK).send({
             status: STATUS.success,
             user: updatedUser,
         });
-
-        logger.info(`Updating ${id} user.`);
     } else {
         return res.status(StatusCodes.NOT_FOUND).send({
             status: STATUS.failure,
@@ -125,13 +125,12 @@ const removeUser = (req, res) => {
     if (user) {
         userService.removeUser(id);
 
+        logger.info(`Removing user ID ${id}.`);
 
         return res.status(StatusCodes.OK).send({
             status: STATUS.success,
             message: `User ${id} has been deleted.`,
         });
-        
-        logger.info(`Removing ${id} user.`);
     } else {
         return res.status(StatusCodes.NOT_FOUND).send({
             status: STATUS.failure,
